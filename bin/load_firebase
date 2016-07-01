@@ -1,0 +1,130 @@
+#!/usr/bin/env node
+var writeJson    = require('write-json');
+var jsonfile     = require('jsonfile')
+var rows         = null
+var Spreadsheet  = require('edit-google-spreadsheet');
+var fs           = require("fs"), json;
+var config = require('../config');
+var q            = require('q');
+var helper = require('../server_helper');
+
+function get_spreadsheet_data(kind, spread_id, work_id){
+  var def = q.defer()
+  Spreadsheet.load({
+    debug: true,
+    spreadsheetId: spread_id,
+    worksheetId: work_id,
+    oauth2: {
+      client_id:     process.env.client_id     || config.oauth2.client_id,
+      client_secret: process.env.client_secret || config.oauth2.client_secret,
+      refresh_token: process.env.refresh_token || config.oauth2.refresh_token
+      }
+    }, function sheetReady(err, spreadsheet) {
+    if(err) throw err;
+
+    spreadsheet.receive({ getValues: true }, function(err, rows, info) {
+
+      if(err) throw err;
+
+      // rows = Object.keys(rows).map(function(e){ar = []; return Object.keys(rows[e]).forEach(function(k){ return ar[k] = rows[e][k]})})
+      arry = [];
+      Object.keys(rows).forEach(function(e){
+        ary = [];
+        Object.keys(rows[e]).forEach(function(k){
+          ary[k-1] = rows[e][k];
+        });
+        arry.push(ary);
+      })
+      writeJson.sync('./public/' + kind + '.json', arry);
+      def.resolve();
+
+    });
+  });
+  return def.promise;
+}
+
+function get_spread_sheets(){
+  get_spreadsheet_data(
+    'budget',
+     process.env.budget_spreadsheetId ||
+    config.budget_spreadsheetId,
+    process.env.budget_worksheetId ||
+    config.budget_worksheetId )
+  // Need to get this from the project pages in the future
+  .then(function(){return get_spreadsheet_data(
+    'form',
+    process.env.project_spreadsheetId ||
+    config.project_spreadsheetId,
+    process.env.project_worksheetId ||
+    config.project_worksheetId
+  )})
+  .then(function(){return get_spreadsheet_data(
+    'dashboard',
+    process.env.projects_spreadsheetId ||
+    config.projects_spreadsheetId,
+    process.env.dashboard_worksheetId ||
+    config.dashboard_worksheetId
+  )})
+  .then(function(){return get_spreadsheet_data(
+    'youth_engagement',
+    process.env.projects_spreadsheetId ||
+    config.projects_spreadsheetId,
+    process.env.youth_engagement_worksheetId ||
+    config.youth_engagement_worksheetId
+  )})
+  .then(function(){return get_spreadsheet_data(
+    'real_time_information',
+    process.env.projects_spreadsheetId ||
+    config.projects_spreadsheetId,
+    process.env.real_time_information_worksheetId ||
+    config.real_time_information_worksheetId
+  )})
+  .then(function(){return get_spreadsheet_data(
+    'infrastructure',
+    process.env.projects_spreadsheetId ||
+    config.projects_spreadsheetId,
+    process.env.infrastructure_worksheetId ||
+    config.infrastructure_worksheetId
+  )})
+  .then(function(){return get_spreadsheet_data(
+    'knowledge_products',
+    process.env.projects_spreadsheetId ||
+    config.projects_spreadsheetId,
+    process.env.knowledge_products_worksheetId ||
+    config.knowledge_products_worksheetId
+  )})
+  .then(function(){return get_spreadsheet_data(
+    'content',
+    process.env.portfolio_content_spreadsheetId ||
+    config.portfolio_content_spreadsheetId,
+    process.env.portfolio_content_worksheetId ||
+    config.portfolio_content_worksheetId
+  )})
+  .then(function(){
+    console.log('DONE with spreadsheets');
+    load_firebase();
+  });
+}
+
+function load_firebase(){
+  gits = [];
+  helper.get_content()
+  .then(function(){return helper.get_projects2('youth_engagement', gits)})
+  .then(function(){return helper.get_projects2('real_time_information', gits)})
+  .then(function(){return helper.get_projects2('infrastructure', gits)})
+  .then(function(){return helper.get_projects2('knowledge_products', gits)})
+  .then(function(gits){return helper.get_git_commits(gits)})
+  .then(function(){return helper.get_cofunding()}) // Still getting this from actual form
+  .then(function(){return helper.get_ureport()})
+  .then(function(){return helper.get_iogt()})
+  .then(function(){return helper.get_budget()})
+  .then(function(){return helper.get_portfolios_summary()})
+  .then(function(){
+    console.log('done loading firebase!');
+    process.exit();
+  })
+}
+
+
+
+get_spread_sheets();

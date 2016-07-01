@@ -1,0 +1,198 @@
+
+<dom-module id='portfolio-projects'>
+  <template>
+    <style>
+      ul{
+        list-style: none;
+      }
+    </style>
+    <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query full query="print" query-matches="{{print}}"></iron-media-query>
+    <div class-name="edge_{{svg}}" style='height:20px;border-top-left-radius:10px;border-top-right-radius:10px;'>
+    </div>
+    <div class-name="{{_computeClass(wide)}}" style='padding:0px;margin:0px;background-color:white;padding:25px;min-height:300px;'>
+      <img src="/images/icons/{{svg}}.svg" style='padding-left:10px;width:100px;height:100%'/>
+      <br />
+      <p style='font-size:22px;padding-top:10px;'>
+        {{phrase}}
+      </p>
+      <p>
+      {{content}}
+      </p>
+    </div>
+    <hr  />
+    <ul class="demo-list-item mdl-list" style='padding:0px;margin:0px;'>
+      <template is="dom-repeat" id='templateProjects' items="{{items}}">
+        <li class="mdl-list__item" style='cursor:pointer;'>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--1-col"></div>
+            <div class="mdl-cell mdl-cell--10-col">
+              <div class-name='project_item divider_{{svg}}' style='text-align:left;' on-tap="clickUserElement">
+                <div style='margin-top:15px;'>
+                  <div class='mdl-grid' style='padding:0px; margin:0px;text-align:right;'>
+                    <div class='mdl-cell mdl-cell--10-col' style='padding:0px; margin:0px;text-align:left;'>
+                      <span data-page="{{svg}}" style='text-align:left;'><b>{{item.name}}</b></span>
+                    </div>
+                    <div class="mdl-layout-spacer"></div>
+                    <div class='mdl-cell mdl-cell--2-col' style='text-align: right; vertical-align:middle;margin:0px;padding:0px;'>
+                      <img src='/images/launch.png' style='text-align:right;vertical-align:middle;margin:0px;padding:0px;'/>
+                    </div>
+                  </div>
+                </div>
+
+                <div style='padding-top:10px;'>
+                  {{item.country}}
+                </div>
+                <div style='padding-top:10px;'>
+                  {{item.amount}}
+                </div>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--1-col"></div>
+          </div>
+        </li>
+      </template>
+    </ul>
+    <firebase-document
+      app-name="test"
+      path="{{location}}"
+      data="{{dataSet}}">
+    </firebase-document>
+  </template>
+</dom-module>
+
+<script>
+  function cleanToMil(num) {
+    if(num >= 1000000){
+      num =  Math.max( Math.round((num/1000000) * 10) / 10, 0 ).toFixed(1);
+      num =  num  % 1 === 0 ? parseInt(num) : num;
+      return "$" + num + "M";
+    }else{
+
+      num = Math.round((num/1000))    // num =  Math.max( Math.round((num/100000) * 10) / 10, 0 ).toFixed(0);
+      num = num  % 1 === 0 ? parseInt(num) : num;
+      return "$" + num + "K";
+    }
+  }
+
+  Polymer({
+    is: 'portfolio-projects',
+
+      handle_response: function(request){
+        this.data = request.detail.response
+      },
+
+    properties: {
+        content: {
+          type: String,
+          value: ""
+        },
+
+        location: {
+          type: String,
+          computed: '_computeLocation(svg)'
+        },
+        dataSet:{
+          type: Object,
+          observer: 'watchout'
+        },
+        items: {
+          type: Array
+        },
+        svg: {
+          value: '',
+          notify: true
+        },
+        phrase: {
+          value: '',
+          notify: true
+        },
+
+        url: {
+          computed: 'computeUrl(svg)'
+        }
+      },
+      watchout: function(obj){
+        if(Object.keys(obj).length > 0){
+          this.items = obj;
+        }
+      },
+      clickUserElement:function(e){
+        var kind = '';
+
+        $('#card_linechart').css('display','none');
+        $('#card-iogt').css('display','none');
+        $('#card-github').css('display','none');
+        $('#project_link').css('display', 'none');
+        var country = this.dataSet[e.model.index].country.replace(/\s+/g, "").toLowerCase()
+        //Get the bound item from the DOM element clicked
+        var data = this.$.templateProjects.itemForElement(e.target);
+
+        if(data.slug.match(/u_report/)){
+          kind = 'ureport';
+          color = 'rgba(255, 204, 51, 0.2)';
+        }else if(data.slug.match(/iogt/)){
+          kind = 'iogt';
+          color = 'rgba(133, 214, 133, 0.2)';
+        } else{
+          kind = 'github';
+          color = 'rgba(255, 143, 171, 0.2)';
+        }
+
+        document.getElementById('portfolio_project_kind').innerHTML = kind;
+        document.getElementById('portfolio_project_color').innerHTML = color;
+
+        document.getElementById('portfolio_project_country').innerHTML = data.country;
+        document.getElementById('portfolio_project_name').innerHTML = data.name;
+        document.getElementById('portfolio_project_amount').innerHTML = '$' + data.amount;
+        document.getElementById('portfolio_project_description').innerHTML = data.description;
+
+        if(data.link_href){
+          $('#project_link').attr('href', data.link_href);
+          $('#project_link').text(data.link_text);
+          $('#project_link').css('display', 'inline');
+        }
+        // $('#portfolio_project_image').attr('src', data.image);
+
+        // DOM elements located in main-app.html
+        if(data.slug.match(/u_report/i)){
+          $('#card_linechart').css('display','inline');
+          $('#fire_for_modal').attr('path', 'ureport/' + country);
+        }else if(data.slug.match(/iogt/i)){
+          $('#card-iogt').css('display','inline');
+          $('#fire_for_modal').attr('path', 'iogt');
+          $('#geo_for_modal').attr('path', 'iogt_all/newUsers')
+        }else if(this.dataSet[e.model.index].github){
+          $('#card_linechart').css('display','inline');
+          // $('#fire_for_git_commits').attr(
+          $('#fire_for_modal').attr(
+            'path',
+            '/git/' +
+            this.dataSet[e.model.index].slug
+          )
+        }
+
+        $('#modal-top').removeClass();
+        $('#modal-top').addClass("modal_top_" + this.svg);
+
+        document.getElementById('modal_ureport').click();
+        // alert(JSON.stringify(data))
+      },
+
+    _computeLocation: function(route) {
+       return "portfolios/" + route + '/projects';
+    },
+
+    to_mil: function(num){
+      return(cleanToMil(num))
+    },
+
+    computeUrl: function(svg){
+      if(svg){return "/line_chart/" + svg}
+    },
+
+    _computeClass: function(wide) {
+       return (!wide) ? 'screen_narrow': 'screen_wide';
+    }
+  })
+</script>

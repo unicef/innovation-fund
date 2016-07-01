@@ -1,0 +1,125 @@
+#!/usr/bin/env node
+var q          = require('q')
+var google     = require('googleapis')
+var analytics  = google.analytics('v3');
+var key        = require('../Innovation-8c7539d6835d.json')
+var firebase   = require('firebase');
+
+firebase.initializeApp({
+  serviceAccount: "../innovation-fund2-571c212fdf82.json",
+  databaseURL: "https://innovation-fund2.firebaseio.com"
+});
+
+var db = firebase.database();
+var fb = "iogt_all/";
+var refUpdate = db.ref("last_updated_iogt")
+
+
+// var sitesRef   = new Firebase('https://iogt3.firebaseio.com/');
+var usersFetch = require('../lib/iogt_fetch_users')
+
+var jwtClient = new google.auth.JWT(key.client_email, null,key.private_key, ['https://www.googleapis.com/auth/analytics.readonly']);
+
+// What does this do?
+function add_names(ary, ref, sites, counter){
+
+  counter = !!counter ? counter : 0
+  if (counter == ary.length){
+    refUpdate.set({value:  firebase.database.ServerValue.TIMESTAMP}, function(err, response){
+      console.log(response)
+      console.log('DONE!');
+      process.exit();
+      return
+    })
+  }
+  ga_id = ary[counter].id
+  name  = ary[counter].websiteUrl.replace('http://', '').split(/\./).slice(0,2).join('-')
+
+  var date     = new Date(ary[counter].created);
+  console.log('Synchronization succeeded');
+  console.log('GETTING ' + counter + " " + name + " " + date)
+  var db = firebase.database();
+  usersFetch.users_info(db, ref, name, ga_id, date, 'users', 0, sites)
+  .then(function(){return usersFetch.users_info(db, ref, name, ga_id, date, 'newUsers', 0, sites)})
+  .then(function(){return usersFetch.with_dimension(db, ref, name, ga_id, date, 'uniquePageviews', 'pageTitle', 0, sites)})
+  .then(function(){return usersFetch.users_language(db, ref, name, ga_id, date, 'newUsers', 'language')})
+  .then(function(){return usersFetch.users_language(db, ref, name, ga_id, date, 'newUsers', 'operatingSystem')})
+  .then(function(){return usersFetch.users_language(db, ref, name, ga_id, date, 'newUsers', 'browser')})
+  .then(function(){return usersFetch.users_language(db, ref, name, ga_id, date, 'newUsers', 'deviceCategory')})
+
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'sessions', 'percentNewSessions')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'sessions', 'sessionsPerUser')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'sessions', 'sessions')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'hits', 'hits')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'hits', 'bounces')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'hits', 'bounceRate')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'time', 'avgTimeOnPage')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'time', 'timeOnPage')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'views', 'uniquePageviews')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'views', 'pageviewsPerSession')})
+  // .then(function(){return usersFetch.with_dimension(ref, name, ga_id, date, 'views', 'pageviews')})
+  .then(function(){add_names(ary, ref, sites, counter+1, def)})
+}
+
+// // Get all sites for property
+// analytics.management.profiles.list({
+//   auth: jwtClient,
+//   accountId: '58897130',
+//   webPropertyId: '~all',
+//   fields: 'items(id, websiteUrl, created)'
+// }, function(err, result){
+
+//     add_names(result.items, sites)
+
+//   console.log(err)
+// })
+
+// What does this do?
+function get_property(account_num, ary){
+  def = q.defer()
+  // Get all sites for property
+  analytics.management.profiles.list({
+    auth: jwtClient,
+    accountId: account_num,
+    webPropertyId: '~all',
+    fields: 'items(id, websiteUrl, created)'
+  }, function(err, result){
+    if(!!result && !!result.items){
+      result.items.forEach(function(e, i, a){
+        ary.push(e)
+        if(i == (a.length-1)){
+          def.resolve(ary)
+        }
+      })
+
+    }else{
+      def.resolve(ary)
+    }
+    //console.log(err)
+  })
+
+  return def.promise;
+}
+var ary=[58899218, 58897130, 58898319, 69353247]
+
+var ary = []
+
+
+function fetch_sites(){
+  // Attach an asynchronous callback to read the data at our posts reference
+  firebase.database().ref('iogt_all').once('value').then(function(snapshot) {
+  // sitesRef.once("value", function(snapshot) {
+    sites = snapshot.val();
+    get_property('58899218', ary)
+    .then(function(arry){return get_property('58897130', arry)})
+    .then(function(arry){return get_property('58898319', arry)})
+    .then(function(arry){return get_property('69353247', arry)})
+    .then(function(arry){
+
+      add_names(arry, fb, sites)
+    })
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  })
+}
+fetch_sites()

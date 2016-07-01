@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+var request   = require("request");
+var firebase = require("firebase");
+var fb_config = require('../firebase_service_account')
+// Initialize the app with a custom auth variable, limiting the server's access
+firebase.initializeApp({
+  serviceAccount: fb_config,
+  databaseURL: "https://innovation-fund2.firebaseio.com"
+});
+
+var db = firebase.database();
+var fb = "ureport_all/orgs/";
+var refUpdate = db.ref("last_updated_ureport")
+
+var url  = "http://nigeria.ureport.in/api/v1/orgs/?format=json&page=1"
+var orgs = []
+
+function fetch(url, orgs){
+  request({
+      url: url,
+      json: true
+  }, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        orgs.push(body.results)
+
+        if(body.next){
+          fetch(body.next, orgs)
+        }else{
+          // [].concat.apply([], orgs).forEach(function(org){
+          //   if(!org.subdomain)
+          //     org.subdomain = 'global'
+          //   // ref = new Firebase(fb + org.subdomain);
+          //   ref = db.ref(fb + org.subdomain)
+          //   console.log(org.subdomain)
+          //   ref.set({value: org})
+          //
+          //   refUpdate.set({value:  firebase.database.ServerValue.TIMESTAMP}, function(err, response){
+          //     console.log('DONE!');
+          //     process.exit()
+          //     return
+          //   })
+          // })
+
+          h = [].concat.apply([], orgs).reduce(function(hash, elem, index){
+            if(!elem.subdomain)
+              elem.subdomain = 'global'
+            hash[elem.subdomain] = elem;
+            return hash;
+          }, {})
+          db.ref(fb).set(h, function(err, response){
+            refUpdate.set({value:  firebase.database.ServerValue.TIMESTAMP}, function(err, response){
+              console.log('DONE!');
+              process.exit()
+              return
+            })
+          })
+
+
+        }
+      }
+  })
+}
+
+fetch(url, orgs)
