@@ -1,6 +1,6 @@
 var express      = require('express');
 var app          = express();
-var helper       = require('./server_helper');
+
 var apicache     = require('apicache').options({ debug: true }).middleware;
 var request_json = require('request-json');
 var client       = request_json.createClient('http://www.unicefstories.org/');
@@ -16,30 +16,5 @@ app.get("/stories", apicache('5 days'), function(req, res){
   })
 })
 
-// This fetches data from google worksheets
-// and stores it in json files in the public dir
-app.get("/refresh", function(req, res){
-  helper.refresh(function(){
-    res.json('Spreadsheet imported: ' +  new Date())
-  })
-});
-
-
-// This open json files in public dir
-// and saves data to firebase
-app.get("/stats", function(req, res){
-  gits = [];
-  helper.get_content()
-  .then(function(){return helper.get_projects2('youth_engagement', gits)})
-  .then(function(){return helper.get_projects2('real_time_information', gits)})
-  .then(function(){return helper.get_projects2('infrastructure', gits)})
-  .then(function(){return helper.get_projects2('knowledge_products', gits)})
-  .then(function(gits){return helper.get_git_commits(gits)})
-  .then(function(){return helper.get_cofunding()}) // Still getting this from actual form
-  .then(function(){return helper.get_ureport()})
-  .then(function(){return helper.get_iogt()})
-  .then(function(){return helper.get_budget()})
-  .then(function(){return res.json([])})
-});
 
 app.listen(process.env.PORT || 3002);
