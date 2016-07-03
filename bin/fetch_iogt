@@ -2,9 +2,9 @@
 var q          = require('q');
 var google     = require('googleapis');
 var analytics  = google.analytics('v3');
-var key        = require('../Innovation-8c7539d6835d.json');
 var firebase   = require('firebase');
 var fb_config = require('../firebase_service_account')
+var key       = require('../ga_service_account')
 
 firebase.initializeApp({
   serviceAccount: fb_config,
