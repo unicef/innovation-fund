@@ -34,24 +34,30 @@
     font-size:12px;
   }
 
-  .project-youth_engagement{
-    border-radius: 50%;background-color:#ffcc33;max-width:20px;max-height:20px;
-  }
-  .project-real_time_information{
-    border-radius: 50%;background-color:#ff3366;max-width:20px; max-height:20px;
-  }
-  .project-infrastructure{
-    border-radius: 50%;background-color:#66cc66;max-width:20px;max-height:20px;
+  .circle {
+    border-radius: 50%;
+    width: 20px !important;
+    height: 20px !important;
   }
 
-  .project-technical_assistance{
-    border-radius: 50%;background-color:#555555;max-width:20px;max-height:20px;
+  .project-youth_engagement .circle {
+    background-color: #ffcc33;
   }
-  .project-fund_management{
-    border-radius: 50%;background-color:#b1b1b1;max-width:20px; max-height:20px;
+  .project-real_time_information  .circle {
+    background-color: #ff3366;
   }
-  .project-knowledge_products{
-    border-radius: 50%;background-color:teal;max-width:20px;max-height:20px;
+  .project-infrastructure .circle {
+    background-color:#66cc66;
+  }
+
+  .project-technical_assistance .circle {
+    background-color:#555555;
+  }
+  .project-fund_management .circle {
+    background-color:#b1b1b1;
+  }
+  .project-knowledge_products .circle {
+    background-color:teal;
   }
   .cell{
     font-size:12px;text-align:left; padding:5px;
@@ -129,35 +135,35 @@
             </div>
           </div>
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-youth_engagement" >
-              &nbsp;
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--1-col-phone project-youth_engagement" >
+              <div class="circle">&nbsp;</div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--2-col-phone">
               PRODUCTS FOR YOUTH
             </div>
-            <div class="mdl-cell mdl-cell--2-col ">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet mdl-cell--1-col-phone">
               {{to_mil(summary.portfolios.invested_youth_engagement.amount)}}
             </div>
           </div>
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-real_time_information" >
-              &nbsp;
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--1-col-phone project-real_time_information" >
+              <div class="circle">&nbsp;</div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--2-col-phone">
               REAL-TIME INFORMATION
             </div>
-            <div class="mdl-cell mdl-cell--2-col ">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet mdl-cell--1-col-phone">
               {{to_mil(summary.portfolios.invested_real_time_information.amount)}}
             </div>
           </div>
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-infrastructure">
-              &nbsp;
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--1-col-phone project-infrastructure">
+              <div class="circle">&nbsp;</div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--2-col-phone">
               INFRASTRUCTURE
             </div>
-            <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet mdl-cell--1-col-phone">
               {{to_mil(summary.portfolios.invested_infrastructure.amount)}}
             </div>
           </div>
@@ -174,35 +180,35 @@
             </div>
           </div>
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-technical_assistance">
-              &nbsp;
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--1-col-phone project-technical_assistance">
+              <div class="circle">&nbsp;</div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--2-col-phone">
               TECHNICAL ASSISTANCE
             </div>
-            <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet mdl-cell--1-col-phone">
               {{to_mil(summary.portfolios.invested_technical_assistance.amount)}}
             </div>
           </div>
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-fund_management">
-              &nbsp;
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--1-col-phone project-fund_management">
+              <div class="circle">&nbsp;</div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--2-col-phone">
               FUND MANAGEMENT
             </div>
-            <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet mdl-cell--1-col-phone">
               {{to_mil(summary.portfolios.invested_fund_management.amount)}}
             </div>
           </div>
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-knowledge_products">
-              &nbsp;
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-tablet mdl-cell--1-col-phone project-knowledge_products">
+              <div class="circle">&nbsp;</div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--2-col-phone">
               KNOWLEDGE PRODUCTS
             </div>
-            <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--2-col-tablet mdl-cell--1-col-phone">
               {{to_mil(summary.portfolios.invested_knowledge_products.amount)}}
             </div>
           </div>
