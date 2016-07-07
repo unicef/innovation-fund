@@ -2,10 +2,10 @@
 
   <template>
     <style>
-    .projects-card {
-      border-radius: 15px;
-      background-color:white;
-    }
+      .projects-card {
+        border-radius: 15px;
+        background-color:white;
+      }
 
       :host{
         display: block;
@@ -28,61 +28,26 @@
         data="{{content}}">
       </firebase-document>
 
-      <project-modal></project-modal>
-
-        <div class="mdl-grid" style='max-width:1200px;'>
-          <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
-            <portfolio-projects content="{{content.youth_engagement}}" phrase='Products For Youth' fb='ureport' svg="youth_engagement" rgb='255, 204, 51, 0.2'>
-            </portfolio-projects>
-          </div>
-          <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
-            <portfolio-projects content="{{content.real_time_info}}" phrase='Real-time Information' svg="real_time_information" rgb='255, 204, 51, 0.2'>
-            </portfolio-projects>
-          </div>
-          <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
-            <portfolio-projects content="{{content.infrastructure}}" phrase='Infrastructure' fb='iogt'  svg="infrastructure"   rgb='255, 204, 51, 0.2'>
-            </portfolio-projects>
-          </div>
-          <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
-            <portfolio-projects content="{{content.knowledge_p}}" phrase='Knowledge Products' fb='iogt'  svg="knowledge_products"   rgb='255, 204, 51, 0.2'>
-            </portfolio-projects>
-          </div>
-        </div>
-
-      <!-- <div class="mdl-grid" style='border:solid blue 2px; margin:0px;padding:0px; text-align:center;' >
-        <div class="mdl-project mdl-shadow--3dp mdl-cell mdl-cell--3-col" style="width:300px;">
-          <portfolio-projects content="{{content.youth_engagement}}" phrase='Youth Engagement' fb='ureport' svg="youth_engagement" rgb='255, 204, 51, 0.2'>
+      <div class="mdl-grid" style='max-width:1200px;'>
+        <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+          <portfolio-projects content="{{content.youth_engagement}}" phrase='Products For Youth' fb='ureport' svg="youth_engagement" rgb='255, 204, 51, 0.2'>
           </portfolio-projects>
         </div>
-        <div class="mdl-project mdl-shadow--3dp mdl-cell mdl-cell--3-col" style="width:300px;">
+        <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
           <portfolio-projects content="{{content.real_time_info}}" phrase='Real-time Information' svg="real_time_information" rgb='255, 204, 51, 0.2'>
           </portfolio-projects>
         </div>
-        <div class="mdl-project mdl-shadow--3dp mdl-cell mdl-cell--3-col" style="width:300px;">
+        <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
           <portfolio-projects content="{{content.infrastructure}}" phrase='Infrastructure' fb='iogt'  svg="infrastructure"   rgb='255, 204, 51, 0.2'>
           </portfolio-projects>
         </div>
-        <div class="mdl-project mdl-shadow--3dp mdl-cell mdl-cell--3-col" style="width:300px;">
+        <div class="projects-card content-column mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--top">
           <portfolio-projects content="{{content.knowledge_p}}" phrase='Knowledge Products' fb='iogt'  svg="knowledge_products"   rgb='255, 204, 51, 0.2'>
           </portfolio-projects>
         </div>
-      </div> -->
-
-
-
-
+      </div>
     </div>
-<!--     <iron-ajax
-        auto
-        url="{{url}}"
-        handle-as="json"
-        loading="{{loading}}"
-        on-response="handle_response"
-        last-response="data"
-        ></iron-ajax>
- -->
   </template>
-
 </dom-module>
 
 <script>
