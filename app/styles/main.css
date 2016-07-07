@@ -13,6 +13,10 @@ body {
   color: #333;
 }
 
+.menu-item{
+  cursor:pointer;
+}
+
 .cloud_page_title{
   color: #ffffff;
   font-size:34px;
