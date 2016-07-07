@@ -3,9 +3,6 @@
   .mdl-card {
       border-radius: 15px;
   }
-  .db_card{
-    max-width: 300px;
-  }
   </style>
 
   <template>
@@ -20,7 +17,7 @@
       </firebase-document>
 
       <main>
-        <div class="mdl-grid">
+        <div class="mdl-grid" style="max-width:1200px;">
           <div class="mdl-card mdl-shadow--3dp mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone db_card">
             <portfolios-summary class='item'></portfolios-summary>
           </div>
