@@ -15,6 +15,9 @@
       .footer_area[wide-layout] .one_third{
         width:400px;
       }
+      .footer_area .sponsor{
+        width:200px;
+      }
     </style>
     <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
     <firebase-document
@@ -63,7 +66,12 @@
             <div class="mdl-cell mdl-cell--12-col">
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col" >
-                  <img class='sponsor one_third' src="../images/sponsors/donors.png">
+                  <a href='http://um.dk/en'>
+                    <img class='sponsor' src="../images/sponsors/danida_logo.jpg">
+                  </a>
+                  <a href='http://www.disney.com'>
+                    <img class='sponsor' src="../images/sponsors/disney_red.png">
+                  </a>
                 </div>
                 <!-- <div class="mdl-cell mdl-cell--6-col" >
                   <img class='sponsor' src="../images/sponsors/disney_red.png">
