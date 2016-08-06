@@ -198,6 +198,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display:none;
       }
 
+      .menu-item{
+        font-family: Source Sans Pro;
+      }
+
+      .menu-item.iron-selected {
+        background-color: #0099FF;
+        color: white;
+      }
   </style>
 
 </head>
@@ -240,25 +248,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Drawer Toolbar -->
           <paper-toolbar id="drawerToolbar">
-            <span class="menu-name">Menu</span>
+            <span class="menu-name">UNICEF</span>
           </paper-toolbar>
 
           <!-- Drawer Content -->
           <paper-menu class="app-menu" selected="[[selected]]">
 
             <p class='menu-item' id='dashboard'>
-              <iron-icon icon="dashboard"></iron-icon>
-              <span>DASHBOARD</span>
+              <!-- <iron-icon icon="dashboard"></iron-icon> -->
+              <span>&nbsp;&nbsp;DASHBOARD</span>
             </p>
 
             <p class='menu-item' id='all_projects'>
-              <iron-icon icon="assessment"></iron-icon>
-              <span>ALL PROJECTS</span>
+              <!-- <iron-icon icon="assessment"></iron-icon> -->
+              <span>&nbsp;&nbsp;ALL PROJECTS</span>
             </p>
 
             <p class='menu-item' id='about'>
-              <iron-icon icon="info"></iron-icon>
-              <span>ABOUT</span>
+              <!-- <iron-icon icon="info"></iron-icon> -->
+              <span>&nbsp;&nbsp;ABOUT</span>
             </p>
           </paper-menu>
         </paper-scroll-header-panel>
