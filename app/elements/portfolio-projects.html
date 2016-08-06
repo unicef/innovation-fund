@@ -150,20 +150,20 @@
         if(data.link_href){
           $('#project_link').attr('href', data.link_href);
           $('#project_link').text(data.link_text);
-          $('#project_link').css('display', 'inline');
+          $('#project_link').css('display', 'block');
         }
         // $('#portfolio_project_image').attr('src', data.image);
 
         // DOM elements located in main-app.html
         if(data.slug.match(/u_report/i)){
-          $('#card_linechart').css('display','inline');
+          $('#card_linechart').css('display','block');
           $('#fire_for_modal').attr('path', 'ureport/' + country);
         }else if(data.slug.match(/iogt/i)){
-          $('#card-iogt').css('display','inline');
+          $('#card-iogt').css('display','block');
           $('#fire_for_modal').attr('path', 'iogt');
           $('#geo_for_modal').attr('path', 'iogt_all/newUsers')
         }else if(this.dataSet[e.model.index].github){
-          $('#card_linechart').css('display','inline');
+          $('#card_linechart').css('display','block');
           // $('#fire_for_git_commits').attr(
           $('#fire_for_modal').attr(
             'path',
