@@ -361,6 +361,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     scope.selected = 0;
     window.addEventListener('WebComponentsReady', function(e) {
       $('paper-tabs paper-tab').click(function(){
+        $('#mainContainer').scrollTop(0);
         scope.selected = $('paper-tabs paper-tab').index(this)
         // Update css settings per tab
         page_change(this.id);
