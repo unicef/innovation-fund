@@ -56,97 +56,37 @@
     }
   }
 
-Polymer({
-  is: 'portfolio-project',
+  Polymer({
+    is: 'portfolio-project',
 
-  properties: {
-    svg: {
-      value: '',
-      notify: true
+    properties: {
+      svg: {
+        value: '',
+        notify: true
+      },
+
+      hovered: {
+        value: 'none'
+      }
     },
 
-    hovered: {
-      value: 'none'
+    to_mil: function(num){
+      return(cleanToMil(num.replace(/\$|,/g, '')))
+    },
+
+    onHovered: function(e) {
+      this.$$('li').classList.add('mdl-shadow--8dp');
+      this.hovered = 'block';
+    },
+
+    onUnHovered: function(e) {
+      this.$$('li').classList.remove('mdl-shadow--8dp');
+      this.hovered = 'none';
+    },
+
+    clickUserElement:function(){
+      clickUserElement(this.item, this.svg);
     }
+  });
 
-  },
-
-  to_mil: function(num){
-    return(cleanToMil(num.replace(/\$|,/g, '')))
-  },
-
-  onHovered: function(e) {
-    this.$$('li').classList.add('mdl-shadow--8dp');
-    this.hovered = 'block';
-  },
-
-  onUnHovered: function(e) {
-    this.$$('li').classList.remove('mdl-shadow--8dp');
-    this.hovered = 'none';
-  },
-
-
-  clickUserElement:function(e){
-    var kind = '';
-
-    $('#card_linechart').css('display','none');
-    $('#card-iogt').css('display','none');
-    $('#card-github').css('display','none');
-    $('#project_link').css('display', 'none');
-    var country = this.data[this.index].country.replace(/\s+/g, "").toLowerCase()
-    //Get the bound item from the DOM element clicked
-
-    if(this.item.slug.match(/u_report/)){
-      kind = 'ureport';
-      color = 'rgba(255, 204, 51, 0.2)';
-    }else if(this.item.slug.match(/iogt/)){
-      kind = 'iogt';
-      color = 'rgba(133, 214, 133, 0.2)';
-    } else{
-      kind = 'github';
-      color = 'rgba(255, 143, 171, 0.2)';
-    }
-
-    document.getElementById('portfolio_project_kind').innerHTML = kind;
-    document.getElementById('portfolio_project_color').innerHTML = color;
-
-    document.getElementById('portfolio_project_country').innerHTML = this.item.country;
-    document.getElementById('portfolio_project_name').innerHTML = this.item.name;
-    document.getElementById('portfolio_project_amount').innerHTML = '$' + this.item.amount;
-    document.getElementById('portfolio_project_description').innerHTML = this.item.description;
-
-    if(this.item.link_href){
-      $('#project_link').attr('href', this.item.link_href);
-      $('#project_link').text(this.item.link_text);
-      $('#project_link').css('display', 'block');
-    }
-    // $('#portfolio_project_image').attr('src', data.image);
-
-    // DOM elements located in main-app.html
-    if(this.item.slug.match(/u_report/i)){
-      $('#card_linechart').css('display','block');
-      $('#fire_for_modal').attr('path', 'ureport/' + country);
-    }else if(this.item.slug.match(/iogt/i)){
-      $('#card-iogt').css('display','block');
-      $('#fire_for_modal').attr('path', 'iogt');
-      $('#geo_for_modal').attr('path', 'iogt_all/newUsers')
-    }else if(this.item.github){
-      $('#card_linechart').css('display','block');
-      // $('#fire_for_git_commits').attr(
-      $('#fire_for_modal').attr(
-        'path',
-        '/git/' +
-        this.item.slug
-      )
-    }
-
-    $('#modal-top').removeClass();
-    $('#modal-top').addClass("modal_top_" + this.svg);
-
-    document.getElementById('modal_ureport').click();
-    // alert(JSON.stringify(data))
-  },
-
-
-})
 </script>

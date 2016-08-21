@@ -195,6 +195,7 @@ function get_financials(kind, obj){
 // This is where we'll probably store projects, i.e. not in the form page.
 exports.get_projects2 = function(portfolio, gits){
   var projects = [];
+  var projects_hash = {}
   var def = q.defer()
 
   jsonfile.readFile(__dirname + '/public/' + portfolio + '.json', function(err, obj) {
@@ -214,27 +215,37 @@ exports.get_projects2 = function(portfolio, gits){
 
       obj.forEach(function(line){
         if(line[amount_index]){
-          projects.push({
+
+          var project = {
             country: line[country_index],
             slug: line[slug_index],
             name: line[name_index],
-            amount: line[amount_index],
-            description: line[description_index],
+            amount: line[amount_index] || "",
+            description: line[description_index] || "",
             github: line[github_index] || "",
             link_href: line[link_href_index] || "",
             link_text: line[link_text_index] || ""
-          });
+          }
+
+          projects_hash[line[slug_index]] = project;
+
+          projects.push(project);
           if(line[github_index]){
             gits.push([line[slug_index], line[github_index]])
           }
         }
       });
-      // portfolios = {}
-      // portfolios[portfolio] = projects;
+
+      // Save projects as array
+      // Also save projects as hash for featured projects
       db.ref('portfolios/' + portfolio).set({
         projects,
       }, function(err, res2){
-        def.resolve(gits)
+        db.ref('portfolio_projects/' + portfolio).set({
+          projects_hash,
+        }, function(err, res2){
+          def.resolve(gits)
+        });
       });
     }
 
