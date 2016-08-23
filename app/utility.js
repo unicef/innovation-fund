@@ -1,3 +1,63 @@
+function clickUserElement(proj, portfolio_name){
+  console.log(proj);
+  var kind = '';
+  $('#card_linechart').css('display','none');
+  $('#card-iogt').css('display','none');
+  $('#card-github').css('display','none');
+  $('#project_link').css('display', 'none');
+  var country = proj.country.replace(/\s+/g, "").toLowerCase()
+  //Get the bound item from the DOM element clicked
+
+  if(proj.slug.match(/u_report/)){
+    kind = 'ureport';
+    color = 'rgba(255, 204, 51, 0.2)';
+  }else if(proj.slug.match(/iogt/)){
+    kind = 'iogt';
+    color = 'rgba(133, 214, 133, 0.2)';
+  } else{
+    kind = 'github';
+    color = 'rgba(255, 143, 171, 0.2)';
+  }
+
+  document.getElementById('portfolio_project_kind').innerHTML = kind;
+  document.getElementById('portfolio_project_color').innerHTML = color;
+  document.getElementById('portfolio_project_country').innerHTML = proj.country;
+  document.getElementById('portfolio_project_name').innerHTML = proj.name;
+  document.getElementById('portfolio_project_amount').innerHTML = '$' + proj.amount;
+  document.getElementById('portfolio_project_description').innerHTML = proj.description;
+
+  if(proj.link_href){
+    $('#project_link').attr('href', proj.link_href);
+    $('#project_link').text(proj.link_text);
+    $('#project_link').css('display', 'block');
+  }
+  // $('#portfolio_project_image').attr('src', data.image);
+
+  // DOM elements located in main-app.html
+  if(proj.slug.match(/u_report/i)){
+    $('#card_linechart').css('display','block');
+    $('#fire_for_modal').attr('path', 'ureport/' + country);
+  }else if(proj.slug.match(/iogt/i)){
+    $('#card-iogt').css('display','block');
+    $('#fire_for_modal').attr('path', 'iogt');
+    $('#geo_for_modal').attr('path', 'iogt_all/newUsers')
+  }else if(proj.github){
+    $('#card_linechart').css('display','block');
+    // $('#fire_for_git_commits').attr(
+    $('#fire_for_modal').attr(
+      'path',
+      '/git/' +
+      proj.slug
+    )
+  }
+
+  $('#modal-top').removeClass();
+  $('#modal-top').addClass("modal_top_" + portfolio_name);
+
+  document.getElementById('modal_ureport').click();
+  // alert(JSON.stringify(data))
+}
+
 function cleanToMil(num) {
   if(num >= 1000000){
     num =  Math.max( Math.round((num/1000000) * 10) / 10, 0 ).toFixed(1);
