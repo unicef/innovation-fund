@@ -14,6 +14,7 @@
          line-height: 30px;
          padding-left:5px;
        }
+
     </style>
 
     <style is="custom-style">
@@ -27,42 +28,46 @@
 
     <iron-media-query query="(min-width: 700px)" query-matches="{{wide}}"></iron-media-query>
     <iron-media-query full query="print" query-matches="{{print}}"></iron-media-query>
-    <div class$="edge_{{svg}}" style='height:20px;'>
-    </div>
-    <br />
+
+
     <div class$="{{_computeClass(wide)}}">
-      <img src="/images/icons/{{svg}}.svg" width=100 style='padding-left:15px;'>
-      <p class$="portfolio_card_title {{svg}}">
-        <div class='mdl-grid' style='text-align: center; '>
-          <div class='mdl-cell mdl-cell--10-col title_card' style='text-align: left;'>
-            <span class$='portfolio_card_title {{svg}}' >{{phrase}}</span>
-          </div>
-          <div class='mdl-cell mdl-cell--2-col' style='margin:0px;padding:0px;display: inline-block; vertical-align: middle; height:100% ;'>
-            <!-- <paper-icon-button style="color:#0099ff; background-color:white;" class='information-tooltip' id="id_2" icon="info" alt="go back"></paper-icon-button> -->
+      <div class='top_container_in_card'>
+        <div class$="edge_{{svg}}" style='height:20px;'>
+        </div>
+        <br />
+        <img src="/images/icons/{{svg}}.svg" width=100 style='padding-left:15px;'>
+        <p class$="portfolio_card_title {{svg}}">
+          <div class='mdl-grid' style='text-align: center; '>
+            <div class='mdl-cell mdl-cell--10-col title_card' style='text-align: left;'>
+              <span class$='portfolio_card_title {{svg}}' >{{phrase}}</span>
+            </div>
+            <div class='mdl-cell mdl-cell--2-col' style='margin:0px;padding:0px;display: inline-block; vertical-align: middle; height:100% ;'>
+              <!-- <paper-icon-button style="color:#0099ff; background-color:white;" class='information-tooltip' id="id_2" icon="info" alt="go back"></paper-icon-button> -->
 
-            <img src='/images/information.png' style='position:relative; top:5px;'id="id_2" />
+              <img src='/images/information.png' style='position:relative; top:5px;'id="id_2" />
+            </div>
           </div>
-        </div>
-        <div >
-          <paper-tooltip  class="custom" for="id_2" offset="0">{{db_tooltip}}</paper-tooltip>
-        </div>
-
-      </p>
-      <hr />
-      <div style='width: 90%;padding:5px;margin: 0 auto; background-color:white;  text-align:center;'>
-        <div class='amount_invested'>
-          <span >AMOUNT INVESTED</span>
-        </div>
-        <p class='amount'>
-          {{to_mil(progress.1)}}
+          <div >
+            <paper-tooltip  class="custom" for="id_2" offset="0">{{db_tooltip}}</paper-tooltip>
+          </div>
         </p>
+      </div>
+      <hr />
+      <div style='width: 90%;margin: 0 auto; background-color:white;  text-align:center;'>
+        <span class$='amount {{svg}}'>
+          {{to_mil(progress.1)}}
+        </span>
+        <div class='amount_invested'>
+          <span class='invested'>INVESTED</span>
+        </div>
 
           <progress-bar total="[[progress.0]]" spent="{{progress.1}}" svg="{{svg}}"></progress-bar>
-        <br>
-        <div class='amount_invested'>
-          <span >AMOUNT AVAILABLE</span>
-        </div>
+
           {{to_mil(progress.0)}}
+        <div class='amount_invested'>
+          <span>AVAILABLE</span>
+        </div>
+
       </div>
 
       <br>
@@ -75,13 +80,13 @@
         {{featured}}
       </div>
 
-      <div class='featured_project_blurb pc_left' on-tap="clickUserElement"
+      <div class='featured_project_blurb pc_left'  on-tap="clickUserElement"
         style='max-height:70px;min-height:70px;cursor:pointer;display:{{display_content}}'>
+          {{featured_content}}
+          <div style='text-align:left;'>
+              <img src='/images/launch.png' style='width:18px;'/>
+          </div>
 
-        {{featured_content}}
-        <span>
-          <img src='/images/launch.png' style='width:18px;'/>
-        </span>
       </div>
 
       <div style='min-height:170px;'>
@@ -235,7 +240,6 @@
     },
 
     _content_arrived: function(obj){
-      console.log(Object.keys(obj).length, obj)
       if(Object.keys(obj).length > 0){
         this.display_content = 'block';
       }
@@ -285,8 +289,6 @@
     _computeClass: function(wide) {
        return (!wide) ? 'screen_narrow': 'screen_wide';
     }
-
-
   })
 
 

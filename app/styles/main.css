@@ -7,11 +7,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-body {
+html, body {
   background: #EDEDED;
-  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Source Sans Pro';
   color: #333;
 }
+
+.top_container_in_card{
+  height:200px;
+}
+
 
 .menu-item{
   cursor:pointer;
@@ -21,7 +26,6 @@ body {
   color: #ffffff;
   font-size:34px;
   font-weight:lighter;
-
 }
 
 #portfolio_project_description{
@@ -109,7 +113,20 @@ paper-tab{
 
 .amount{
   text-align: center;
-  font-size:24px;
+  font-size:28px;
+  font-weight:normal;
+}
+
+.amount .youth_engagement{
+  color: #ffcc33;
+}
+
+.amount .youth_engagement{
+  color: #ff3366;
+}
+
+.amount .youth_engagement{
+  color: #66cc66;
 }
 
 .total{
@@ -212,12 +229,6 @@ paper-tab{
   padding-top:100px;
   color:white;
   height:100px;
-}
-
-.hello_holder {
-  text-align: center;
-  margin:0px;
-  padding:0px;
 }
 
 .all_projects-ribbon {

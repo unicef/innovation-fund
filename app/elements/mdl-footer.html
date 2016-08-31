@@ -5,6 +5,13 @@
         width:100px;
         list-style: none;
       }
+      .img_share{
+        width:30px;
+      }
+      .share{
+        padding:5px;
+        margin:5px;
+      }
       ul{
         list-style: none;
         padding-left:0;
@@ -66,11 +73,11 @@
             <div class="mdl-cell mdl-cell--12-col">
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col" >
-                  <a href='http://um.dk/en'>
+                  <a target='_blank' href='http://um.dk/en'>
                     <img class='sponsor' src="../images/sponsors/danida_logo.jpg">
                   </a>
-                  <a href='http://www.disney.com'>
-                    <img class='sponsor' src="../images/sponsors/disney_red.png">
+                  <a target='_blank' href='http://www.disney.com'>
+                    <img class='sponsor' style='width:100px;' src="../images/sponsors/disney_red.png">
                   </a>
                 </div>
                 <!-- <div class="mdl-cell mdl-cell--6-col" >
@@ -102,32 +109,37 @@
           </div>
         </div>
         <div class='mdl-mini-footer--right-section'>
-          <!-- <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col">
-              <u>
-                MENU
-              </u>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col" style='text-align: left;'>
+              <span>
+                SHARE
+              </span>
 
             </div>
           </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--11-col">
-              <ul>
-                <li>
-                  DASHBOARD
-                </li>
-                <li>
-                  ALL PROJECTS
-                </li>
-                <li>
-                  ABOUT
-                </li>
-              </ul>
-            </div>
-            <div class="mdl-cell mdl-cell--1-col">
-              &nbsp;
-            </div>
-          </div> -->
+          <div class="mdl-grid" style='text-align:left;'>
+            <div class="mdl-cell mdl-cell--12-col" >
+
+              <div class="mdl-grid" style='padding:0px;margin:0px;'>
+                <div class="mdl-cell mdl-cell--4-col share" style='margin:0px 0px 0px 0px;'>
+                  <a target='_blank' href='http://static1.squarespace.com/static/5696a456c647ad1998f5126b/t/56abf4b822482e393fe61b37/1454109884675/facebook.png?format=100w'>
+                    <img src='/images/share/facebook.png' class='img_share' />
+                  </a>
+                </div>
+                <div class="mdl-cell mdl-cell--4-col share" style='margin:0px 0px 0px 10px;'>
+                  <a target='_blank' href='https://twitter.com/UNICEFinnovate'>
+                    <img src='/images/share/twitter.png' class='img_share' />
+                  </a>
+                </div>
+                <div class="mdl-cell mdl-cell--4-col share" style='margin:0px 0px 0px 10px;'>
+                  <a target='_blank' href='http://www.unicefstories.org/'>
+                    <img src='/images/share/uniceflogo.png' class='img_share' />
+                  </a>
+                </div>
+
+              </div>
+
+          </div>
         </div>
       </footer>
     </div>

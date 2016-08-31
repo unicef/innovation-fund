@@ -13,7 +13,7 @@
   }*/
   .top_sum{
     font-weight:400;
-    font-size:24px;
+    font-size:34px;
   }
 
   .pie_explanation{
@@ -60,6 +60,10 @@
   .row{
     margin-bottom:5px;
   }
+
+  .mdl-grid{
+    padding:0px;
+  }
   </style>
 
   <template style='max-width:900px;'>
@@ -70,156 +74,156 @@
       data="{{summary}}">
     </firebase-document>
 
-    <div>
+    <div class='top_container_in_card'>
       <div style='text-align:center;padding-left:20px;'>
-        <div class="bubble" style="text-align:center;border-color: rgb(127, 127, 127); min-height: 120px; top: 40px; border-width: 0px; background-color: rgb(255, 255, 255);">
-          <div class="pointer" style="content: '';position: absolute;border-style: solid;border-width: 15px 9px 0;border-color: #FFFFFF transparent;display: block;width: 0;z-index: 1;bottom: -15px;left: 111px;">
-          </div>
-          <div class="pointerBorder" style="display: none">
-          </div>
-          <br /><br />
-          <div class="content-grid mdl-grid" style='font-weight:800;font-size:12px;'>
-            <div class="mdl-cell mdl-cell--6-col">
-              <div style="height:40px;">
-                INNOVATION FUND
-              </div>
-                <br>
-              <div class='top_sum'>
-                {{to_mil(summary.stats.total_available)}}
-              </div>
+        <div class="pointer" style="content: '';position: absolute;border-style: solid;border-width: 15px 9px 0;border-color: #FFFFFF transparent;display: block;width: 0;z-index: 1;bottom: -15px;left: 111px;">
+        </div>
+        <div class="pointerBorder" style="display: none">
+        </div>
+        <br /><br />
+        <div class="content-grid mdl-grid" style='font-weight:800;font-size:12px;'>
+          <div class="mdl-cell mdl-cell--6-col">
+            <div style="height:40px;">
+              INNOVATION FUND
             </div>
-            <div class="mdl-cell mdl-cell--6-col">
-              <div style="height:40px;">
-                CO FUNDING LEVERAGED
-              </div>
-                <br>
-              <div class='top_sum'>
-                {{to_mil(summary.stats.co_funding)}}
-              </div>
+              <br>
+            <div class='top_sum'>
+              {{to_mil(summary.stats.total_available)}}
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <div style="height:40px;">
+              CO FUNDING LEVERAGED
+            </div>
+              <br>
+            <div class='top_sum'>
+              {{to_mil(summary.stats.co_funding)}}
             </div>
           </div>
         </div>
       </div>
-      <br>
-      <div style='text-align:center;'>
-        <hr style='width:80%;margin:auto;' />
-      </div>
+    </div>
+</p>
 
-      <div class='pie_explanation'>
-        {{to_mil(summary.stats.total_invested)}} has been invested in {{summary.stats.num_projects}} projects in {{summary.stats.num_countries}} countries.
-      </div>
-      <br>
-      <br>
-      <div style='text-align:center;'>
+    <div style='text-align:center;'>
+      <hr style='width:80%;margin:auto;' />
+    </div>
 
-        <chart-pie data="[[process_for_pie(summary)]]" options="[[options]]" style="display:block !important;"></chart-pie>
-      </div>
-      <br>
-      <div>
+    <div class='pie_explanation'>
+      {{to_mil(summary.stats.total_invested)}} has been invested in {{summary.stats.num_projects}} projects in {{summary.stats.num_countries}} countries.
+    </div>
+    <br>
+    <br>
+    <div style='text-align:center;'>
 
-        <div class='portfolio_stats'>
-          <div class='mdl-grid'>
-            <div class="mdl-cell mdl-cell--12-col" >
-              <div class='portfolios'>
-                PORTFOLIOS
-              </div>
-              <div style='text-align:center;'>
-                <hr  />
-              </div>
-            </div>
-          </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-youth_engagement" >
-              &nbsp;
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-              PRODUCTS FOR YOUTH
-            </div>
-            <div class="mdl-cell mdl-cell--2-col ">
-              {{to_mil(summary.portfolios.invested_youth_engagement.amount)}}
-            </div>
-          </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-real_time_information" >
-              &nbsp;
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-              REAL-TIME INFORMATION
-            </div>
-            <div class="mdl-cell mdl-cell--2-col ">
-              {{to_mil(summary.portfolios.invested_real_time_information.amount)}}
-            </div>
-          </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-infrastructure">
-              &nbsp;
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-              INFRASTRUCTURE
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">
-              {{to_mil(summary.portfolios.invested_infrastructure.amount)}}
-            </div>
-          </div>
+      <chart-pie data="[[process_for_pie(summary)]]" options="[[options]]" style="display:block !important;"></chart-pie>
+    </div>
+    <br>
+    <div>
 
-          <br>
-          <div class='mdl-grid'>
-            <div class="mdl-cell mdl-cell--12-col" >
-              <div class='portfolios'>
-                OTHERS
-              </div>
-              <div style='text-align:center;'>
-                <hr  />
-              </div>
+      <div class='portfolio_stats'>
+        <div class='mdl-grid'>
+          <div class="mdl-cell mdl-cell--12-col" >
+            <div class='portfolios'>
+              PORTFOLIOS
             </div>
-          </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-technical_assistance">
-              &nbsp;
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-              TECHNICAL ASSISTANCE
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">
-              {{to_mil(summary.portfolios.invested_technical_assistance.amount)}}
-            </div>
-          </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-fund_management">
-              &nbsp;
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-              FUND MANAGEMENT
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">
-              {{to_mil(summary.portfolios.invested_fund_management.amount)}}
-            </div>
-          </div>
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col project-knowledge_products">
-              &nbsp;
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-              KNOWLEDGE PRODUCTS
-            </div>
-            <div class="mdl-cell mdl-cell--2-col">
-              {{to_mil(summary.portfolios.invested_knowledge_products.amount)}}
+            <div style='text-align:center;'>
+              <hr  />
             </div>
           </div>
         </div>
-      </div>
-      <br>
-      <!-- <hr style='padding:0px;margin:0px;'/>
-      <div class="mdl-grid see_all_projects">
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-cell mdl-cell--8-col cell">
-          <span style='font-size:14px;font-weight:14px;'>See All Projects</span>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col project-youth_engagement" >
+            &nbsp;
+          </div>
+          <div class="mdl-cell mdl-cell--8-col">
+            PRODUCTS FOR YOUTH
+          </div>
+          <div class="mdl-cell mdl-cell--2-col ">
+            {{to_mil(summary.portfolios.invested_youth_engagement.amount)}}
+          </div>
         </div>
-        <div class="mdl-cell mdl-cell--2-col cell" >
-          <i class="material-icons" style="background-color:white; color:#0099ff;">chevron_right</i>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col project-real_time_information" >
+            &nbsp;
+          </div>
+          <div class="mdl-cell mdl-cell--8-col">
+            REAL-TIME INFORMATION
+          </div>
+          <div class="mdl-cell mdl-cell--2-col ">
+            {{to_mil(summary.portfolios.invested_real_time_information.amount)}}
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col project-infrastructure">
+            &nbsp;
+          </div>
+          <div class="mdl-cell mdl-cell--8-col">
+            INFRASTRUCTURE
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            {{to_mil(summary.portfolios.invested_infrastructure.amount)}}
+          </div>
+        </div>
+
+        <br>
+        <div class='mdl-grid'>
+          <div class="mdl-cell mdl-cell--12-col" >
+            <div class='portfolios'>
+              OTHERS
+            </div>
+            <div style='text-align:center;'>
+              <hr  />
+            </div>
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col project-technical_assistance">
+            &nbsp;
+          </div>
+          <div class="mdl-cell mdl-cell--8-col">
+            TECHNICAL ASSISTANCE
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            {{to_mil(summary.portfolios.invested_technical_assistance.amount)}}
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col project-fund_management">
+            &nbsp;
+          </div>
+          <div class="mdl-cell mdl-cell--8-col">
+            FUND MANAGEMENT
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            {{to_mil(summary.portfolios.invested_fund_management.amount)}}
+          </div>
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col project-knowledge_products">
+            &nbsp;
+          </div>
+          <div class="mdl-cell mdl-cell--8-col">
+            KNOWLEDGE PRODUCTS
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            {{to_mil(summary.portfolios.invested_knowledge_products.amount)}}
+          </div>
         </div>
       </div>
-    </div> -->
+    </div>
+    <br>
+    <!-- <hr style='padding:0px;margin:0px;'/>
+    <div class="mdl-grid see_all_projects">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-cell mdl-cell--8-col cell">
+        <span style='font-size:14px;font-weight:14px;'>See All Projects</span>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col cell" >
+        <i class="material-icons" style="background-color:white; color:#0099ff;">chevron_right</i>
+      </div>
+    </div>
+  </div> -->
   </template>
 
 </dom-module>

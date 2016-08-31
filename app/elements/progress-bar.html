@@ -32,12 +32,16 @@
 
     </style>
 
-<div style='display:flex;justify-content: center;'>
-  <div id="progressBar" class$="progress-{{svg}}" style$="width:{{bar_size}}px;">
-    <div id="scrubber"  class$="scrubber-{{svg}}" style$="width:{{progress_length}}px;"></div>
+  <div style='display:flex;justify-content: center;'>
+    <div id="progressBar" class$="progress-{{svg}}" style$="width:{{bar_size}}px;">
+      <div id="scrubber"  class$="scrubber-{{svg}}" style$="width:{{progress_length}}px;"></div>
+    </div>
   </div>
-</div>
-  <span id='line' class$="scrubber-{{svg}}">&nbsp;</span>
+
+  <div style='display:flex;justify-content: center;'>
+    <div id='line' class$="scrubber-{{svg}}" style='width:1px;'>&nbsp;</div>
+  </div>
+
 </template>
 
   <script>
