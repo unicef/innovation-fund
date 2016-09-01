@@ -11,6 +11,7 @@
       .share{
         padding:5px;
         margin:5px;
+        max-width:30px;
       }
       ul{
         list-style: none;
@@ -143,6 +144,9 @@
         </div>
       </footer>
     </div>
+    <div id='testito'>
+
+    </div>
   </template>
 
 </dom-module>
@@ -157,8 +161,8 @@
       }
     },
     interpolate_footer_text: function(text){
-      console.log(text)
       this.$.footer_text.innerHTML = text;
+      this.$.testito.innerHTML = navigator.userAgent;
     }
 
   })
