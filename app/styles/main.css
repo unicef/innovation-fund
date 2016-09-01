@@ -14,7 +14,7 @@ html, body {
 }
 
 .top_container_in_card{
-  height:200px;
+  min-height:200px;
 }
 
 

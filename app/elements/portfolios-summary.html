@@ -64,6 +64,12 @@
   .mdl-grid{
     padding:0px;
   }
+  .portfolio_name{
+    max-width:140px;
+  }
+  .portfolio_amount{
+    max-width:100px;
+  }
   </style>
 
   <template style='max-width:900px;'>
@@ -136,10 +142,10 @@
           <div class="mdl-cell mdl-cell--2-col project-youth_engagement" >
             &nbsp;
           </div>
-          <div class="mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--8-col portfolio_name">
             PRODUCTS FOR YOUTH
           </div>
-          <div class="mdl-cell mdl-cell--2-col ">
+          <div class="mdl-cell mdl-cell--2-col portfolio_amount">
             {{to_mil(summary.portfolios.invested_youth_engagement.amount)}}
           </div>
         </div>
@@ -147,10 +153,10 @@
           <div class="mdl-cell mdl-cell--2-col project-real_time_information" >
             &nbsp;
           </div>
-          <div class="mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--8-col portfolio_name">
             REAL-TIME INFORMATION
           </div>
-          <div class="mdl-cell mdl-cell--2-col ">
+          <div class="mdl-cell mdl-cell--2-col portfolio_amount">
             {{to_mil(summary.portfolios.invested_real_time_information.amount)}}
           </div>
         </div>
@@ -158,10 +164,10 @@
           <div class="mdl-cell mdl-cell--2-col project-infrastructure">
             &nbsp;
           </div>
-          <div class="mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--8-col portfolio_name">
             INFRASTRUCTURE
           </div>
-          <div class="mdl-cell mdl-cell--2-col">
+          <div class="mdl-cell mdl-cell--2-col portfolio_amount">
             {{to_mil(summary.portfolios.invested_infrastructure.amount)}}
           </div>
         </div>
@@ -181,10 +187,10 @@
           <div class="mdl-cell mdl-cell--2-col project-technical_assistance">
             &nbsp;
           </div>
-          <div class="mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--8-col portfolio_name">
             TECHNICAL ASSISTANCE
           </div>
-          <div class="mdl-cell mdl-cell--2-col">
+          <div class="mdl-cell mdl-cell--2-col portfolio_amount">
             {{to_mil(summary.portfolios.invested_technical_assistance.amount)}}
           </div>
         </div>
@@ -192,10 +198,10 @@
           <div class="mdl-cell mdl-cell--2-col project-fund_management">
             &nbsp;
           </div>
-          <div class="mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--8-col portfolio_name">
             FUND MANAGEMENT
           </div>
-          <div class="mdl-cell mdl-cell--2-col">
+          <div class="mdl-cell mdl-cell--2-col portfolio_amount">
             {{to_mil(summary.portfolios.invested_fund_management.amount)}}
           </div>
         </div>
@@ -203,10 +209,10 @@
           <div class="mdl-cell mdl-cell--2-col project-knowledge_products">
             &nbsp;
           </div>
-          <div class="mdl-cell mdl-cell--8-col">
+          <div class="mdl-cell mdl-cell--8-col portfolio_name">
             KNOWLEDGE PRODUCTS
           </div>
-          <div class="mdl-cell mdl-cell--2-col">
+          <div class="mdl-cell mdl-cell--2-col portfolio_amount">
             {{to_mil(summary.portfolios.invested_knowledge_products.amount)}}
           </div>
         </div>
@@ -231,8 +237,8 @@
 <script>
   function divide_by_100k(str_dollar_amount){
     var num = Number(str_dollar_amount.replace(/[^0-9\.]+/g,""))
-    return num/1000;
-
+    // return num/1000;
+    return num/1;
   }
 
   Polymer({
@@ -262,6 +268,7 @@
         labels: portfolios.map(function(e){return data[e].label}),
         datasets: [
           {
+            // data: portfolios.map(function(e){return divide_by_100k(data[e].amount)}),
             data: portfolios.map(function(e){return divide_by_100k(data[e].amount)}),
             backgroundColor: portfolios.map(function(e){return data[e].color}),
             hoverBackgroundColor: portfolios.map(function(e){return data[e].color})
