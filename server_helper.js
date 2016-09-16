@@ -3,20 +3,20 @@ var writeJson    = require('write-json');
 var jsonfile     = require('jsonfile')
 var rows         = null
 var Spreadsheet  = require('edit-google-spreadsheet');
-var fs           = require("fs"), json;
-var firebase = require("firebase");
+var fs           = require('fs'), json;
+var firebase = require('firebase');
 var Firebase     = require('firebase');
 var fb_config = require('./firebase_service_account')
 // Initialize the app with a custom auth variable, limiting the server's access
 firebase.initializeApp({
   serviceAccount: fb_config,
-  databaseURL: "https://innovation-fund2.firebaseio.com"
+  databaseURL: 'https://innovation-fund2.firebaseio.com'
 });
 
 var db = firebase.database();
 
 var mainRef = db.ref('/')
-var refForm = db.ref("form");
+var refForm = db.ref('form');
 var refGit = db.ref('git');
 var refUReportGet = db.ref('ureport_all'); //All ureport orgs
 var refUReport = db.ref('ureport'); // Storing fund orgs
@@ -178,7 +178,7 @@ exports.get_git_commits = function(gits){
 
 
 function get_financials(kind, obj){
-  var re = new RegExp(kind,"g");
+  var re = new RegExp(kind,'g');
   return obj.filter(function(e){
     return !!e[0] && e[0].match(re)
   })[0]
@@ -217,14 +217,14 @@ exports.get_projects2 = function(portfolio, gits){
         if(line[amount_index]){
 
           var project = {
-            country: line[country_index],
-            slug: line[slug_index],
-            name: line[name_index],
-            amount: line[amount_index] || "",
-            description: line[description_index] || "",
-            github: line[github_index] || "",
-            link_href: line[link_href_index] || "",
-            link_text: line[link_text_index] || ""
+            country: line[country_index] ||  '',
+            slug: line[slug_index] || '',
+            name: line[name_index] ||  '',
+            amount: line[amount_index] ||  '',
+            description: line[description_index] || '',
+            github: line[github_index] ||  '',
+            link_href: line[link_href_index] || '',
+            link_text: line[link_text_index] || ''
           }
 
           projects_hash[line[slug_index]] = project;
@@ -337,7 +337,6 @@ exports.get_portfolios_summary = function(){
     return def.promise;
   }
 exports.get_budget = function(){
-
   var def = q.defer()
   jsonfile.readFile(__dirname + '/public/budget.json', function(err, obj) {
     if (!!obj){
@@ -405,8 +404,6 @@ exports.get_cofunding = function(){
       countries_index = obj[0].findIndex(function(e){return e.match(/^Country/)})
       released_index  = obj[0].findIndex(function(e){return e.match(/^Amount invested/)})
 
-
-
       obj.forEach(function(r, i){
         if(i > 0){
             countries[r[countries_index]] = !!countries[r[countries_index]] ? (countries[r[countries_index]]) + 1 : 1
@@ -463,6 +460,7 @@ function getMonths(orgs, countries){
 }
 
 exports.get_iogt = function(){
+  console.log('IOGT');
   var def = q.defer()
   firebase.database().ref('iogt_all/users').once('value').then(function(snapshot) {
     users = snapshot.val()
@@ -500,7 +498,6 @@ exports.get_iogt = function(){
 }
 
 exports.get_ureport = function(){
-
   var projects  = require('./public/youth_engagement.json')
   var def = q.defer()
   firebase.database().ref('ureport_all').once('value').then(function(snapshot) {
@@ -508,15 +505,15 @@ exports.get_ureport = function(){
 
     records = {};
     countries = [];
-
+    console.log(projects.length)
     // Only get countries in the fund
-    countries = projects.filter(function(e){
-      return e[1].match(/u-report/i)
+    countries = projects.filter(function(e, i){
+      return e[1] && e[1].match(/u-report/i)
     }).map(function(e){
       return e[2].replace(/\s+/g,'').toLowerCase();
     })
-    countries.forEach(function(country){
 
+    countries.forEach(function(country){
       var months = getMonths(orgs, [country])
       var dataSet = [];
 

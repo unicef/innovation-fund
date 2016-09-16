@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var writeJson    = require('write-json');
-var jsonfile     = require('jsonfile')
-var rows         = null
+var jsonfile     = require('jsonfile');
+var rows         = null;
 var Spreadsheet  = require('edit-google-spreadsheet');
 var fs           = require("fs"), json;
 var config = require('../config');
@@ -9,7 +9,7 @@ var q            = require('q');
 var helper = require('../server_helper');
 
 function get_spreadsheet_data(kind, spread_id, work_id){
-  var def = q.defer()
+  var def = q.defer();
   Spreadsheet.load({
     debug: true,
     spreadsheetId: spread_id,
@@ -21,11 +21,8 @@ function get_spreadsheet_data(kind, spread_id, work_id){
       }
     }, function sheetReady(err, spreadsheet) {
     if(err) throw err;
-
     spreadsheet.receive({ getValues: true }, function(err, rows, info) {
-
       if(err) throw err;
-
       // rows = Object.keys(rows).map(function(e){ar = []; return Object.keys(rows[e]).forEach(function(k){ return ar[k] = rows[e][k]})})
       arry = [];
       Object.keys(rows).forEach(function(e){
@@ -33,11 +30,11 @@ function get_spreadsheet_data(kind, spread_id, work_id){
         Object.keys(rows[e]).forEach(function(k){
           ary[k-1] = rows[e][k];
         });
+
         arry.push(ary);
       })
       writeJson.sync('./public/' + kind + '.json', arry);
       def.resolve();
-
     });
   });
   return def.promise;
@@ -46,20 +43,20 @@ function get_spreadsheet_data(kind, spread_id, work_id){
 function get_spread_sheets(){
   get_spreadsheet_data(
     'budget',
-     process.env.budget_spreadsheetId ||
+    process.env.budget_worksheetId ||
     config.budget_spreadsheetId,
     process.env.budget_worksheetId ||
     config.budget_worksheetId )
   // Need to get this from the project pages in the future
   .then(function(){return get_spreadsheet_data(
     'form',
-    process.env.project_spreadsheetId ||
+    process.env.spreadsheetID ||
     config.project_spreadsheetId,
-    process.env.project_worksheetId ||
+    process.env.project_form_id ||
     config.project_worksheetId
   )})
   .then(function(){return get_spreadsheet_data(
-    'dashboard',
+    'dashboard', // THIS is right
     process.env.projects_spreadsheetId ||
     config.projects_spreadsheetId,
     process.env.dashboard_worksheetId ||
@@ -117,11 +114,12 @@ function load_firebase(){
   .then(function(){return helper.get_cofunding()}) // Still getting this from actual form
   .then(function(){return helper.get_ureport()})
   .then(function(){return helper.get_iogt()})
-  .then(function(){return helper.get_budget()})
+  .then(function(){return helper.get_budget()}) //NOT USING THIS ANYMORE. USING Portfolio Summary
   .then(function(){return helper.get_portfolios_summary()})
   .then(function(){
     console.log('done loading firebase!');
     process.exit();
+    return;
   })
 }
 
