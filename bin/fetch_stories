@@ -1,6 +1,5 @@
 var request_json = require('request-json');
 var client       = request_json.createClient('http://www.unicefstories.org/');
-var config = require('../config');
 
 var firebase = require("firebase");
 var fb_config = require('../firebase_service_account')
