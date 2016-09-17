@@ -58,50 +58,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     google.charts.load('current', {'packages':['geochart']});
 
-    google.charts.setOnLoadCallback(function() {
-      // setTimeout(function(){
-      //   alert('hi')
-      //   var apiKey='AIzaSyBoZQn8DD6KfFRAr0tWOUJeK0cNNEMngSk';
-      //   var authDomain ='innovation-fund2.firebaseapp.com';
-      //   var databaseUrl='https://innovation-fund2.firebaseio.com';
-      //
-      //   var fb1 = document.createElement("firebase-document");
-      //   var fb2 = document.createElement("firebase-document");
-      //   var fb3 = document.createElement("firebase-document");
-      //
-      //   fb1.setAttribute('api-key', apiKey);
-      //   fb2.setAttribute('api-key', apiKey);
-      //   fb3.setAttribute('api-key', apiKey);
-      //
-      //   fb1.setAttribute('auth-domain', authDomain);
-      //   fb2.setAttribute('auth-domain', authDomain);
-      //   fb3.setAttribute('auth-domain', authDomain);
-      //
-      //
-      //   fb1.setAttribute('database-url', databaseUrl);
-      //   fb2.setAttribute('database-url', databaseUrl);
-      //   fb3.setAttribute('database-url', databaseUrl);
-      //
-      //   fb1.setAttribute('name', 'test');
-      //   fb2.setAttribute('name', 'test2');
-      //   fb3.setAttribute('name', 'test3');
-      //   document.getElementById("fb1").appendChild(fb1);
-      //   document.getElementById("fb2").appendChild(fb2);
-      //   document.getElementById("fb3").appendChild(fb3);
-      //   document.getElementById("my_dashboard").appendChild(dashboard);
-      // }, 1000)
-      //
-      // setTimeout(function(){
-      //   var dashboard = document.createElement("dashboard-top");
-      //   document.getElementById("my_dashboard").appendChild(dashboard);
-      // }, 2000)
-
-
-    });
-
-
-
-
     function humanize_label(label){
       var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       month = parseInt(label.split(/-/)[1]);
@@ -218,28 +174,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template is="dom-bind" id="app">
     <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
     <div class="mainView" wide-layout$="{{wide}}">
-      <div id='fb1'></div>
-      <div id='fb2'></div>
-      <div id='fb3'></div>
       <firebase-app
       api-key='AIzaSyBoZQn8DD6KfFRAr0tWOUJeK0cNNEMngSk'
       auth-domain ='innovation-fund2.firebaseapp.com'
       database-url='https://innovation-fund2.firebaseio.com'
       name='test'>
-      </firebase-app>
-
-      <firebase-app
-      api-key="AIzaSyBoZQn8DD6KfFRAr0tWOUJeK0cNNEMngSk"
-      auth-domain ="innovation-fund2.firebaseapp.com"
-      database-url="https://innovation-fund2.firebaseio.com/"
-      name="test2">
-      </firebase-app>
-
-      <firebase-app
-      api-key="AIzaSyBoZQn8DD6KfFRAr0tWOUJeK0cNNEMngSk"
-      auth-domain ="innovation-fund2.firebaseapp.com"
-      database-url="https://innovation-fund2.firebaseio.com/"
-      name="test3">
       </firebase-app>
 
       <paper-drawer-panel id="paperDrawerPanel" force-narrow="true">
