@@ -9,7 +9,7 @@ var config = require('../config');
 
 firebase.initializeApp({
   serviceAccount: fb_config,
-  databaseURL: "https://innovation-fund2.firebaseio.com"
+  databaseURL: config.firebase_database_url || process.env.firebase_database_url
 });
 
 var db = firebase.database();

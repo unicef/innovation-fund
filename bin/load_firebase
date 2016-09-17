@@ -4,7 +4,7 @@ var jsonfile     = require('jsonfile');
 var rows         = null;
 var Spreadsheet  = require('edit-google-spreadsheet');
 var fs           = require("fs"), json;
-var config = require('./config');
+var config = require('../config');
 var q            = require('q');
 var helper = require('../server_helper');
 
