@@ -2,10 +2,11 @@
 var request   = require("request");
 var firebase = require("firebase");
 var fb_config = require('../firebase_service_account')
+var config = require('../config');
 // Initialize the app with a custom auth variable, limiting the server's access
 firebase.initializeApp({
   serviceAccount: fb_config,
-  databaseURL: "https://innovation-fund2.firebaseio.com"
+  databaseURL: config.firebase_database_url
 });
 
 var db = firebase.database();
@@ -51,7 +52,7 @@ function store_source(source){
           org.subdomain = 'global';
         promises.push(
           new Promise(function(resolve, reject){
-            ref = db.ref(fb + org.subdomain);
+            var ref = db.ref(fb + org.subdomain);
             console.log(org.name)
             ref.set(org, function(){
               resolve();

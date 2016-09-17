@@ -1,0 +1,30 @@
+var request_json = require('request-json');
+var client       = request_json.createClient('http://www.unicefstories.org/');
+var config = require('../config');
+
+var firebase = require("firebase");
+var fb_config = require('../firebase_service_account')
+// Initialize the app with a custom auth variable, limiting the server's access
+firebase.initializeApp({
+  serviceAccount: fb_config,
+  databaseURL: config.firebase_database_url
+});
+
+var db = firebase.database();
+var ref = db.ref("stories")
+
+
+client.get('category/youth-engagement/?json=1', function(err, xxx, body) {
+  if (err || !body) {
+    console.log(err);
+  }
+  if (Array.isArray(body.posts)) {
+    ref.set(body.posts.slice(0,6), function(){
+      console.log(body.posts.slice(0,6))
+      return process.exit();
+    });
+  } else {
+    console.log('no go');
+
+  }
+});

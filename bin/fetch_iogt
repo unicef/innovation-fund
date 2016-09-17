@@ -5,10 +5,11 @@ var analytics  = google.analytics('v3');
 var firebase   = require('firebase');
 var fb_config = require('../firebase_service_account')
 var key       = require('../ga_service_account')
+var config = require('../config');
 
 firebase.initializeApp({
   serviceAccount: fb_config,
-  databaseURL: "https://innovation-fund2.firebaseio.com"
+  databaseURL: config.firebase_database_url
 });
 
 var db = firebase.database();

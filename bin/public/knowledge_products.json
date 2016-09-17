@@ -1,0 +1,54 @@
+[
+  [
+    "slug",
+    "title",
+    "country",
+    "amount_invested",
+    "co_funding",
+    "description",
+    "github",
+    "link_href",
+    "link_text"
+  ],
+  [
+    "alternative_energy",
+    "Renewable Energy",
+    "Global",
+    "$27,000",
+    null,
+    "Lack of access to safe, clean and affordable energy is a main barrier to providing health, education, protection and other critical services to children, especially in rural and marginalized communities. Extending energy access to bottom-of-pyramid (usually rural) markets requires an integrated strategy on electrification and community engagement from the household to policy levels.  Presently, there is limited evidence for proven business models that extend off-grid electrification sustainably and at scale. This market research provides insight on renewable energy in emerging markets, and contributes to UNICEF Innovation’s strategy and work in extending equitable access to information and infrastructure for the most vulnerable children and their families.",
+    null,
+    "http://www.unicefstories.org/wp-content/uploads/2013/08/UNICEF-Market-Research-for-Renewable-Energy-edited-final_june13.pdf",
+    "Published report"
+  ],
+  [
+    "open_source_models",
+    "Open Source Business Models",
+    "Global",
+    "$16,800",
+    null,
+    "UNICEF’s Innovation Fund has been established to support the development of open-source tools that bring results for children. Presently, there is limited documentation of proven business models around open-source products and services that can be employed by startups and other businesses addressing development needs.\n This research supports the identification and documentation of successful open-source business models. The resulting business cases provide insight on viable business models for open-source startups in the developing world, and contribute to UNICEF Innovation’s strategy to create and support common open-source platforms, applications and systems that bring results for children. ",
+    null,
+    "http://www.unicefstories.org/2016/02/16/job-opportunity-business-model-research-consultant-new-york-2/",
+    "Project description"
+  ],
+  [
+    "satellites",
+    "Satellites",
+    "Global",
+    "$15,750",
+    null,
+    "Providing sustainable infrastructure in hard-to-reach environments remains one of the biggest challenges in UNICEF´s Access to Information portfolio. Satellite connectivity could help overcome coverage issues in remote areas but high bandwidth costs present significant challenges to date. This market research provides insight on the use of satellite services in emerging markets, and contribute to UNICEF Innovation’s strategy and work in extending equitable access to information and infrastructure for the most vulnerable children and their families. ",
+    null,
+    "http://www.unicefstories.org/wp-content/uploads/2013/08/UNICEF-Satellite-Market-Research-for-blog.pdf",
+    "Published report "
+  ],
+  [
+    "connectivity",
+    "E-education for Remote Areas",
+    "Brazil",
+    "$20,000",
+    null,
+    "Brazil’s Amazonas State faces great challenges to guarantee the right to education to its child and adolescents population, because of its size, low population density and remote locations. Thanks to the \"Classroom Teaching with Technology Mediation\" project, close to 40,000 students from over 3.000 communities in the state are gaining access to primary and secondary education. Classes are taught from television studios located in the Amazon Educational Media Centre (CEMEAM) in Manaus, using a teleconference format. This technology allows teachers and students to interact as if they were in the same physical space. Using the Amazonas as an example, this study will explore the experiences and lessons of using technology to deliver quality education across remote locations"
+  ]
+]

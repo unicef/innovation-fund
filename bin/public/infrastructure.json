@@ -1,0 +1,30 @@
+[
+  [
+    "slug",
+    "title",
+    "country",
+    "amount_invested",
+    "co_funding",
+    "description",
+    "github",
+    "media_link",
+    "data_indicator",
+    "graph_format",
+    "link_href",
+    "link_text"
+  ],
+  [
+    "iogt",
+    "Internet of Good Things",
+    "Global",
+    "$110,000",
+    0,
+    "Internet of Good Things is a set of mobile-ready resources and applications made accessible for free via a network of distribution partners. It increases access to life-saving info to the previously unconnected. Through various channels, IoGT provides essential information for families and communities on children’s health. Information related to Ebola as well as Facts for Life, a handbook of essential information families and communities need to know to raise healthy children, is now available for free. The investment has focused on deployment as well as development of the content management system which will be used in other channels in addition to internet.org.",
+    null,
+    null,
+    null,
+    "World Map",
+    "http://www.unicefstories.org/2015/05/12/unicef-innovations-internet-of-good-things/",
+    "Feature story"
+  ]
+]
