@@ -1,5 +1,6 @@
+console.log("TEST FETCH STORIES")
 var request_json = require('request-json');
-var client       = request_json.createClient('http://www.unicefstories.org/');
+var client = request_json.createClient('http://www.unicefstories.org/');
 
 var firebase = require("firebase");
 var fb_config = require('../firebase_service_account')
