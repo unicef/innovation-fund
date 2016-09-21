@@ -1,7 +1,7 @@
 This is an old repository that includes a cms component. The [issues](https://github.com/unicef/innovation-fund/issues) are current, but the latest project build is [here](https://github.com/unicef/unicef-innovation-fund) and deployed [here](http://unicef-innovation-fund.firebaseapp.com).
 
 
-## [Documentation](https://docs.google.com/presentation/d/1HbaZBWy66uNeN2QR21K9LZ1WvLyM8hGFpEEAK4GxuS0/edit#slide=id.g1364efe171_0_1)
+## Please see detailed documentation [here](https://docs.google.com/presentation/d/1HbaZBWy66uNeN2QR21K9LZ1WvLyM8hGFpEEAK4GxuS0/edit#slide=id.g1364efe171_0_1).
 
 ![](https://cloud.githubusercontent.com/assets/110953/7877439/6a69d03e-0590-11e5-9fac-c614246606de.png)
 ## Polymer Starter Kit
