@@ -9,38 +9,39 @@ var q            = require('q');
 var helper = require('../server_helper');
 
 function get_spreadsheet_data(kind, spread_id, work_id){
-  var def = q.defer();
-  Spreadsheet.load({
-    debug: true,
-    spreadsheetId: spread_id,
-    worksheetId: work_id,
-    oauth2: {
-      client_id:     process.env.client_id     || config.oauth2.client_id,
-      client_secret: process.env.client_secret || config.oauth2.client_secret,
-      refresh_token: process.env.refresh_token || config.oauth2.refresh_token
-      }
-    }, function sheetReady(err, spreadsheet) {
-    if(err) throw err;
-    spreadsheet.receive({ getValues: true }, function(err, rows, info) {
-      if(err){
-        console.log("DBUG!!")
-        console.log(err);
-      }
-      // rows = Object.keys(rows).map(function(e){ar = []; return Object.keys(rows[e]).forEach(function(k){ return ar[k] = rows[e][k]})})
-      arry = [];
-      Object.keys(rows).forEach(function(e){
-        ary = [];
-        Object.keys(rows[e]).forEach(function(k){
-          ary[k-1] = rows[e][k];
-        });
+  return new Promise(function(resolve, reject){
+    Spreadsheet.load({
+      debug: true,
+      spreadsheetId: spread_id,
+      worksheetId: work_id,
+      oauth2: {
+        client_id:     process.env.client_id     || config.oauth2.client_id,
+        client_secret: process.env.client_secret || config.oauth2.client_secret,
+        refresh_token: process.env.refresh_token || config.oauth2.refresh_token
+        }
+      }, function sheetReady(err, spreadsheet) {
+      if(err) throw err;
+      spreadsheet.receive({ getValues: true }, function(err, rows, info) {
+        if(err){
+          console.log("DBUG!!")
+          console.log(err);
+          return reject(err);
+        }
+        // rows = Object.keys(rows).map(function(e){ar = []; return Object.keys(rows[e]).forEach(function(k){ return ar[k] = rows[e][k]})})
+        arry = [];
+        Object.keys(rows).forEach(function(e){
+          ary = [];
+          Object.keys(rows[e]).forEach(function(k){
+            ary[k-1] = rows[e][k];
+          });
 
-        arry.push(ary);
-      })
-      writeJson.sync('./public/' + kind + '.json', arry);
-      def.resolve();
+          arry.push(ary);
+        })
+        writeJson.sync('./public/' + kind + '.json', arry);
+        resolve();
+      });
     });
-  });
-  return def.promise;
+  })
 }
 
 function get_spread_sheets(){
