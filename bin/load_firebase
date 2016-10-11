@@ -22,8 +22,8 @@ function get_spreadsheet_data(kind, spread_id, work_id){
       }, function sheetReady(err, spreadsheet) {
       if(err) throw err;
       spreadsheet.receive({ getValues: true }, function(err, rows, info) {
+          console.log("DBUG!!", kind, spread_id, work_id);
         if(err){
-          console.log("DBUG!!", kind, spread_id, work_id)
           console.log(err);
           return reject(err);
         }
@@ -47,7 +47,7 @@ function get_spreadsheet_data(kind, spread_id, work_id){
 function get_spread_sheets(){
   get_spreadsheet_data(
     'budget',
-    process.env.budget_worksheetId ||
+    process.env.budget_spreadsheetId ||
     config.budget_spreadsheetId,
     process.env.budget_worksheetId ||
     config.budget_worksheetId )
