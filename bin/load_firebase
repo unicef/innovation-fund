@@ -23,6 +23,7 @@ function get_spreadsheet_data(kind, spread_id, work_id){
     if(err) throw err;
     spreadsheet.receive({ getValues: true }, function(err, rows, info) {
       if(err){
+        console.log("DBUG!!")
         console.log(err);
       }
       // rows = Object.keys(rows).map(function(e){ar = []; return Object.keys(rows[e]).forEach(function(k){ return ar[k] = rows[e][k]})})
