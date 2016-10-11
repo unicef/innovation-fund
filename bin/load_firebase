@@ -22,7 +22,9 @@ function get_spreadsheet_data(kind, spread_id, work_id){
     }, function sheetReady(err, spreadsheet) {
     if(err) throw err;
     spreadsheet.receive({ getValues: true }, function(err, rows, info) {
-      if(err) throw err;
+      if(err){
+        console.log(err);
+      }
       // rows = Object.keys(rows).map(function(e){ar = []; return Object.keys(rows[e]).forEach(function(k){ return ar[k] = rows[e][k]})})
       arry = [];
       Object.keys(rows).forEach(function(e){
