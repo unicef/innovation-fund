@@ -1,4 +1,4 @@
-console.log("TEST FETCH STORIES")
+console.log("TEST FETCH STORIES!");
 var request_json = require('request-json');
 var client = request_json.createClient('http://www.unicefstories.org/');
 
