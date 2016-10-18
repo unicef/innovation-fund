@@ -7,7 +7,7 @@ var fs           = require("fs"), json;
 var config = require('../config');
 var q            = require('q');
 var helper = require('../server_helper');
-
+console.log('testito!');
 function get_spreadsheet_data(kind, spread_id, work_id){
   return new Promise(function(resolve, reject){
     Spreadsheet.load({
