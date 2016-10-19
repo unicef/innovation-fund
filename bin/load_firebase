@@ -7,7 +7,7 @@ var fs           = require("fs"), json;
 var config = require('../config');
 var q            = require('q');
 var helper = require('../server_helper');
-console.log('testito!');
+
 function get_spreadsheet_data(kind, spread_id, work_id){
   return new Promise(function(resolve, reject){
     Spreadsheet.load({
@@ -46,19 +46,18 @@ function get_spreadsheet_data(kind, spread_id, work_id){
 
 function get_spread_sheets(){
   get_spreadsheet_data(
-    'budget',
-    process.env.budget_spreadsheetId ||
-    config.budget_spreadsheetId,
-    process.env.budget_worksheetId ||
-    config.budget_worksheetId )
-  // Need to get this from the project pages in the future
-  .then(function(){return get_spreadsheet_data(
     'form',
     process.env.spreadsheetID ||
     config.project_spreadsheetId,
     process.env.project_form_id ||
-    config.project_worksheetId
-  )})
+    config.project_worksheetId)
+  .then(function(){return get_spreadsheet_data(
+      'budget',
+      process.env.budget_spreadsheetId ||
+      config.budget_spreadsheetId,
+      process.env.budget_worksheetId ||
+      config.budget_worksheetId )
+  })
   .then(function(){return get_spreadsheet_data(
     'dashboard', // THIS is right
     process.env.projects_spreadsheetId ||
