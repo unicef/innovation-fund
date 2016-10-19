@@ -199,9 +199,9 @@ exports.get_projects2 = function(portfolio, gits){
   var def = q.defer()
 
   jsonfile.readFile(__dirname + '/public/' + portfolio + '.json', function(err, obj) {
-
-    if (!!obj){
+    if (obj){
       slug_index = obj[0].findIndex(function(e){return e.match(/slug/i)});
+      investment_status_index = obj[0].findIndex(function(e){return e.match(/investment_status/i)});
       country_index = obj[0].findIndex(function(e){return e.match(/country/i)});
       name_index = obj[0].findIndex(function(e){return e.match(/title/i)});
       description_index = obj[0].findIndex(function(e){return e.match(/description/i)});
@@ -219,6 +219,7 @@ exports.get_projects2 = function(portfolio, gits){
           var project = {
             country: line[country_index] ||  '',
             slug: line[slug_index] || '',
+            investment_status: line[investment_status_index] || '',
             name: line[name_index] ||  '',
             amount: line[amount_index] ||  '',
             description: line[description_index] || '',
@@ -226,9 +227,7 @@ exports.get_projects2 = function(portfolio, gits){
             link_href: line[link_href_index] || '',
             link_text: line[link_text_index] || ''
           }
-
           projects_hash[line[slug_index]] = project;
-
           projects.push(project);
           if(line[github_index]){
             gits.push([line[slug_index], line[github_index]])
@@ -248,7 +247,6 @@ exports.get_projects2 = function(portfolio, gits){
         });
       });
     }
-
   })
   return def.promise;
 }
@@ -505,14 +503,17 @@ exports.get_ureport = function(){
 
     records = {};
     countries = [];
-    console.log(projects.length)
+
+    title_index = projects[0].findIndex(function(e){return e.match(/title/i)});
+    country_index = projects[0].findIndex(function(e){return e.match(/country/i)});
+
     // Only get countries in the fund
     countries = projects.filter(function(e, i){
-      return e[1] && e[1].match(/u-report/i)
+      return e[title_index] && e[title_index].match(/u-report/i)
     }).map(function(e){
-      return e[2].replace(/\s+/g,'').toLowerCase();
+      return e[country_index].replace(/\s+/g,'').toLowerCase();
     })
-
+    console.log(countries)
     countries.forEach(function(country){
       var months = getMonths(orgs, [country])
       var dataSet = [];
