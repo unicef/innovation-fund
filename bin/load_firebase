@@ -109,6 +109,7 @@ function get_spread_sheets(){
 function load_firebase(){
   gits = [];
   helper.get_content()
+  .then(function(){return helper.get_budget()})
   .then(function(){return helper.get_projects2('youth_engagement', gits)})
   .then(function(){return helper.get_projects2('real_time_information', gits)})
   .then(function(){return helper.get_projects2('infrastructure', gits)})
@@ -117,7 +118,6 @@ function load_firebase(){
   .then(function(){return helper.get_cofunding()}) // Still getting this from actual form
   .then(function(){return helper.get_ureport()})
   .then(function(){return helper.get_iogt()})
-  .then(function(){return helper.get_budget()}) //NOT USING THIS ANYMORE. USING Portfolio Summary
   .then(function(){return helper.get_portfolios_summary()})
   .then(function(){
     console.log('done loading firebase!');

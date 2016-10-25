@@ -251,6 +251,59 @@ exports.get_projects2 = function(portfolio, gits){
   return def.promise;
 }
 
+exports.get_budget = function(){
+  var def = q.defer()
+  jsonfile.readFile(__dirname + '/public/dashboard.json', function(err, obj) {
+    if (!!obj){
+      spents = {};
+      totals = {};
+      // Remove first null element
+      obj[0].shift();
+      index_youth_engagement = obj[0].findIndex(function(e){return e.match(/youth_engagement/i)}) + 1;
+      index_real_time_data = obj[0].findIndex(function(e){return e.match(/real_time_data/i)}) + 1;
+      index_infrastructure = obj[0].findIndex(function(e){return e.match(/infrastructure/i)}) + 1;
+
+      totals['youth_engagement'] = obj[1][index_youth_engagement].replace(/[$,]/g, '');
+      totals['realtime_information'] = obj[1][index_real_time_data].replace(/[$,]/g, '');
+      totals['infrastructure'] = obj[1][index_infrastructure].replace(/[$,]/g, '');
+
+      spents['youth_engagement'] = obj[2][index_youth_engagement].replace(/[$,]/g, '');
+      spents['realtime_information'] = obj[2][index_real_time_data].replace(/[$,]/g, '');
+      spents['infrastructure'] = obj[2][index_infrastructure].replace(/[$,]/g, '');
+
+      refBudget.set({totals: totals, spents: spents}, function(err, res2){
+        def.resolve()
+      });
+    } else {
+      def.resolve()
+    }
+  })
+  return def.promise;
+}
+
+// exports.get_budget = function(){
+//   var def = q.defer()
+//   jsonfile.readFile(__dirname + '/public/budget.json', function(err, obj) {
+//     if (!!obj){
+//       spents = {};
+//       totals = {};
+//       obj.shift()
+//       obj.forEach(function(e){
+//         if(e[2]){
+//           totals[e[0]] = parseInt(e[1].replace(/,/g, ''));
+//           spents[e[0]] = parseInt(e[2].replace(/,/g, ''));
+//         }
+//       })
+//       refBudget.set({totals: totals, spents: spents}, function(err, res2){
+//         def.resolve()
+//       });
+//     } else {
+//       def.resolve()
+//     }
+//   })
+//   return def.promise;
+// }
+
 exports.get_portfolios_summary = function(){
     var def = q.defer()
     jsonfile.readFile(__dirname + '/public/dashboard.json', function(err, obj) {
@@ -292,32 +345,32 @@ exports.get_portfolios_summary = function(){
             },
             portfolios:{
               invested_youth_engagement: {
-                amount: investeds[2],
+                amount: investeds[3],
                 label: 'Products for youth',
                 color: '#ffcc33'
               },
               invested_real_time_information: {
-                amount: investeds[3],
+                amount: investeds[4],
                 label: 'Real-time Information',
                 color: '#ff3366'
               },
               invested_infrastructure:{
-                amount: investeds[4],
+                amount: investeds[5],
                 label: 'Infrastructure',
                 color: '#66cc66'
               },
               invested_technical_assistance:{
-                amount: investeds[5],
+                amount: investeds[6],
                 label: 'Technical Assistance',
                 color: '#555555'
               },
               invested_fund_management:{
-                amount: investeds[6],
+                amount: investeds[7],
                 label: 'Fund management',
                 color: '#b1b1b1'
               },
               invested_knowledge_products:{
-                amount: investeds[7],
+                amount: investeds[8],
                 label: 'Knowledge products',
                 color: 'teal'
               },
@@ -334,46 +387,6 @@ exports.get_portfolios_summary = function(){
     })
     return def.promise;
   }
-exports.get_budget = function(){
-  var def = q.defer()
-  jsonfile.readFile(__dirname + '/public/budget.json', function(err, obj) {
-    if (!!obj){
-      spents = {};
-      totals = {};
-      obj.shift()
-      obj.forEach(function(e){
-        if(e[2]){
-          totals[e[0]] = parseInt(e[1].replace(/,/g, ''));
-          spents[e[0]] = parseInt(e[2].replace(/,/g, ''));
-        }
-      })
-      refBudget.set({totals: totals, spents: spents}, function(err, res2){
-        // res.json({'totals': array2hash(totals), 'spents': array2hash(spents)})
-        def.resolve()
-      });
-
-
-      // portfolios = obj[0].filter(function(e){
-      //   return !!e
-      // }).map(function(e){
-      //   return e.replace(/portfolio\s+\d+:\s+/i, '')
-      //   .replace(/admin/i, 'fund_management')
-      //   .replace(/\s+/g, '_').toLowerCase();
-      // })
-      // totals = get_financials('Total income', obj)
-      // spents = get_financials('TOTAL SPENT', obj)
-      // budgetRef.set({totals: array2hash(totals), spents: array2hash(spents)}, function(err, res2){
-      //   // res.json({'totals': array2hash(totals), 'spents': array2hash(spents)})
-      //   def.resolve()
-      // });
-    }else{
-
-      def.resolve()
-      // res.json([])
-    }
-  })
-  return def.promise;
-}
 
 exports.get_content = function(gits){
   var def = q.defer()
@@ -513,7 +526,6 @@ exports.get_ureport = function(){
     }).map(function(e){
       return e[country_index].replace(/\s+/g,'').toLowerCase();
     })
-    console.log(countries)
     countries.forEach(function(country){
       var months = getMonths(orgs, [country])
       var dataSet = [];
